@@ -1,0 +1,65 @@
+services:
+# =====================================================================================
+# ENV DEV
+# =====================================================================================
+
+  activity-service-dev:
+    container_name: activity-service-dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npm run start:dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - ./src/infrastructure/config/.env.dev
+    depends_on:
+      - activity-db-dev
+    profiles: ["dev"]
+
+  activity-db-dev:
+    image: postgres:18
+    container_name: activity-db-dev
+    env_file:
+      - ./src/infrastructure/config/.env.dev
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata-dev:/var/lib/postgresql/data
+    profiles: ["dev"]
+
+
+# =====================================================================================
+# ENV PROD
+# =====================================================================================
+
+  activity-service-prod:
+    container_name: activity-service-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./src/infrastructure/config/.env.prod
+    depends_on:
+      - activity-db-prod
+    restart: unless-stopped
+    profiles: ["prod"]
+
+  activity-db-prod:
+    image: postgres:18
+    container_name: activity-db-prod
+    env_file:
+      - ./src/infrastructure/config/.env.prod
+    volumes:
+      - pgdata-prod:/var/lib/postgresql/data
+    restart: unless-stopped
+    profiles: ["prod"]
+
+volumes:
+  pgdata-dev:
+  pgdata-prod:
