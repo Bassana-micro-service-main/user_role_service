@@ -1,15 +1,15 @@
-
-export interface RoleProps{
+export interface fileProps {
     readonly id?:number;
     publicId:string;
     name:string;
-    description:string;
-    isSystem:boolean;
-    readonly createdAt?:Date;
-    readonly updatedAT?:Date;
+    path:string;
+    type:string;
+    size:BigInt;
+    uploadedBy:string;
+    readonly createdAt?:timestamp;
 }
-export class RoleEntity {
-    constructor(private readonly props: RoleProps){}
+export class fileEntity {
+    constructor(private readonly props: fileProps){}
     
     get id(): number | undefined {
             return this.props.id;
@@ -23,15 +23,15 @@ export class RoleEntity {
             return this.props.name;
         }
     
-        get description(): string {
-            return this.props.description;
+        get path(): string {
+            return this.props.path;
         }
     
-        get isSystem(): boolean {
-            return this.props.isSystem;
+        get type(): string {
+            return this.props.type;
         }
     
-        update(updates: Partial<RoleProps>): RoleEntity {
+        update(updates: Partial<fileProps>): fileEntity {
             Object.assign(this.props, updates);
             return this;
         }

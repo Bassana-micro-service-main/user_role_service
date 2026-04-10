@@ -1,15 +1,13 @@
-
-export interface RoleProps{
+import { typeEnum } from "../enums/type.enum";
+export interface elementProps {
     readonly id?:number;
     publicId:string;
     name:string;
-    description:string;
-    isSystem:boolean;
     readonly createdAt?:Date;
-    readonly updatedAT?:Date;
+    type:typeEnum;
 }
-export class RoleEntity {
-    constructor(private readonly props: RoleProps){}
+export class elementEntity {
+    constructor(private readonly props: elementProps){}
     
     get id(): number | undefined {
             return this.props.id;
@@ -23,15 +21,11 @@ export class RoleEntity {
             return this.props.name;
         }
     
-        get description(): string {
-            return this.props.description;
+        get type(): typeEnum{
+            return this.props.type;
         }
     
-        get isSystem(): boolean {
-            return this.props.isSystem;
-        }
-    
-        update(updates: Partial<RoleProps>): RoleEntity {
+        update(updates: Partial<elementProps>): elementEntity {
             Object.assign(this.props, updates);
             return this;
         }

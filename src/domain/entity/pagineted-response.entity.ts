@@ -1,0 +1,7 @@
+export interface PaginetedResponse<T> {
+    data:T [];
+    total:number;
+    page:number;
+    limit:number;
+    totalPage:number
+    }
