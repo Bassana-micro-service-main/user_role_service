@@ -1,4 +1,4 @@
-export enum modeEnum {
-    allow= 'allow',
+export enum ModeEnum {
+    allow = 'allow',
     deny = 'deny'
 }
