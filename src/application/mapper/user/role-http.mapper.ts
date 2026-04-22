@@ -12,7 +12,6 @@ import { UpdateRoleCommand } from "src/domain/port/in/role/update-role.interface
 export class RoleHttpMapper {
   static toCreateCommand(dto: CreateRoleDto): CreateRoleCommand {
     return {
-      publicId:dto.publicId,
       name: dto.name,
       description: dto.description,
       isSystem: dto.isSystem,
@@ -21,7 +20,6 @@ export class RoleHttpMapper {
 
   static toUpdateCommand(dto: UpdateRoleDto): UpdateRoleCommand {
     return {
-      publicId:dto.publicId,
       name: dto.name,
       description: dto.description,
       isSystem: dto.isSystem,

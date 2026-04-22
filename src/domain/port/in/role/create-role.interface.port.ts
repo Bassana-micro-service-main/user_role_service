@@ -1,7 +1,6 @@
 import { RoleEntity } from "src/domain/entities/role.entity";
 
 export interface CreateRoleCommand {
-    publicId:string;
     name: string;
     description: string;
     isSystem: boolean;

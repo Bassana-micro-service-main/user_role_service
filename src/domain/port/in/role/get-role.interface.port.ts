@@ -11,5 +11,5 @@ export interface GetRoleResponse {
 }
 
 export interface GetRoleInterfacePort {
-    execute(query: GetRoleQuery): Promise<RoleEntity | null>;
+    execute(query: GetRoleQuery): Promise<RoleEntity>;
 }

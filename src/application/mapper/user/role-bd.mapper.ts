@@ -1,6 +1,6 @@
 import {RoleProps } from "src/domain/entities/role.entity";
 import { RoleEntity } from "src/domain/entities/role.entity";
-export class UserDbMapper {
+export class RoleDbMapper {
 
   static toDomain(prisma: RoleProps): RoleEntity {
     return new RoleEntity({
@@ -19,7 +19,10 @@ export class UserDbMapper {
       public_id: entity.publicId,
       name: entity.name,
       description: entity.description,
-      isSytem: entity.isSystem,
+      is_system: entity.isSystem,
     };
   }
 }
+
+// Backward compatibility for existing imports.
+export const UserDbMapper = RoleDbMapper;

@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsInt, IsOptional, IsString, Min, Max } from 'class-validator';
+import { IsBoolean, IsInt, IsOptional, IsString, Min, Max } from 'class-validator';
 
 export class ListRoleDto {
 
@@ -23,6 +23,7 @@ export class ListRoleDto {
   name?: string;
   
   @IsOptional()
-  @IsString()
+  @Type(() => Boolean)
+  @IsBoolean()
   isSystem?: boolean;
 }

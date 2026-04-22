@@ -12,7 +12,7 @@ export class GetRoleUseCase implements GetRoleInterfacePort {
     private readonly validator: GetRoleValidator,
   ) { }
 
-  async execute(query: GetRoleQuery): Promise<RoleEntity | null> {
+  async execute(query: GetRoleQuery): Promise<RoleEntity> {
     this.validator.validate(query);
 
     const entity = await this.repository.findByPublicId(query.publicId);

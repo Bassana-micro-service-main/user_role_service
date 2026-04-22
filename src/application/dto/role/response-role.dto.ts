@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
 import { IsNanoId } from 'src/lib/decorators.commons';
 
 export class ResponseRoleDto {
@@ -6,15 +6,15 @@ export class ResponseRoleDto {
     @IsNotEmpty()
     publicId!: string;
 
-    @IsNanoId()
+    @IsString()
     @IsNotEmpty()
     name!: string;
 
-    @IsNanoId()
+    @IsString()
     @IsNotEmpty()
     description!: string;
 
-    @IsNotEmpty()
+    @IsBoolean()
     isSystem!: boolean;
 
 

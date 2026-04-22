@@ -1,15 +1,16 @@
-import { IsNotEmpty, Matches, MinLength } from 'class-validator';
-import { IsNanoId } from 'src/lib/decorators.commons';
+import { IsBoolean, IsNotEmpty, IsString, MaxLength } from "class-validator";
 
 export class CreateRoleDto {
-    @MinLength(8)
-    @Matches(/(?=.*\d)/, { message: 'password must contain a number' })
-    @Matches(/(?=.*[^A-Za-z0-9])/, { message: 'password must contain a special character' })
-    publicId!:string;
-    name!:string;
-    description!: string;
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(120)
+  name!: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(500)
+  description!: string;
 
-    @IsNotEmpty()
-    isSystem!: boolean;
+  @IsBoolean()
+  isSystem!: boolean;
 }
