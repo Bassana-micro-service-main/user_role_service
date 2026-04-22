@@ -1,9 +1,10 @@
-import { RoleEntity } from "src/domain/entity/role.entity";
+import { RoleEntity } from "src/domain/entities/role.entity";
 
 export interface CreateRoleCommand {
-    name:string;
-    description:string;
-    isSystem:boolean;
+    publicId:string;
+    name: string;
+    description: string;
+    isSystem: boolean;
 }
 
 export interface CreateRoleInterfacePort {

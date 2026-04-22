@@ -3,5 +3,5 @@ export interface DeleteRoleCommand {
 }
 
 export interface DeleteRoleInterfacePort {
-    execute(command: DeleteRoleCommand): Promise<void>
+    execute(command: DeleteRoleCommand): Promise<void>;
 }

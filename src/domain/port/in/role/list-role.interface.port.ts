@@ -1,12 +1,14 @@
+import { PaginatedResponse } from "src/domain/entities/paginated-response.entity";
+import { RoleEntity } from "src/domain/entities/role.entity";
 
-import { RoleEntity } from "src/domain/entity/role.entity";
-
-export interface ListRoleQuery {  
-    description?:string;
-    isSystem?:boolean;
+export interface ListRoleQuery {
+    page: number;
+    limit: number;
+    description?: string;
+    isSystem?: boolean;
+    name?: string;
 }
 
-
-export interface listUserInterfacePort {
-    execute(query: ListRoleQuery): Promise<RoleEntity>
+export interface ListRoleInterfacePort {
+    execute(query: ListRoleQuery): Promise<PaginatedResponse<RoleEntity>>;
 }

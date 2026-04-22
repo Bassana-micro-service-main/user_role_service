@@ -6,7 +6,7 @@ export interface RoleProps{
     description:string;
     isSystem:boolean;
     readonly createdAt?:Date;
-    readonly updatedAT?:Date;
+    readonly updatedAt?:Date;
 }
 export class RoleEntity {
     constructor(private readonly props: RoleProps){}
