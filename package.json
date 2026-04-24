@@ -19,14 +19,15 @@
     "test:e2e": "vitest run"
   },
   "dependencies": {
+    "20": "^3.1.9",
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/typeorm": "^11.0.1",
     "@prisma/adapter-pg": "^7.7.0",
-    "@prisma/client": "^7.7.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.4",
+    "nestjs": "^0.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "typeorm": "^0.3.28"
@@ -37,6 +38,7 @@
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
+    "@prisma/client": "^5.22.0",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.7",
     "@types/supertest": "^6.0.2",
@@ -46,6 +48,7 @@
     "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
     "prettier": "^3.4.2",
+    "prisma": "^5.22.0",
     "source-map-support": "^0.5.21",
     "supertest": "^7.0.0",
     "ts-loader": "^9.5.2",
