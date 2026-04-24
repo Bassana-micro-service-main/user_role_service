@@ -5,7 +5,7 @@ import { ListRoleQuery } from "../in/role/list-role.interface.port";
 export interface RoleRepositoryPort {
     save(role: RoleEntity): Promise<RoleEntity>;
 
-    findById(id: number): Promise<RoleEntity | null>;
+    findById(id: string): Promise<RoleEntity | null>;
 
     findByPublicId(publicId: string): Promise<RoleEntity | null>;
 

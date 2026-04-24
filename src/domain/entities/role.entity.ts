@@ -1,6 +1,6 @@
 
 export interface RoleProps{
-    readonly id?:number;
+    readonly id?:string;
     publicId:string;
     name:string;
     description:string;
@@ -11,7 +11,7 @@ export interface RoleProps{
 export class RoleEntity {
     constructor(private readonly props: RoleProps){}
     
-    get id(): number | undefined {
+    get id(): string | undefined {
             return this.props.id;
         }
     

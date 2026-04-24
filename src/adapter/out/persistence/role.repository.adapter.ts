@@ -23,7 +23,7 @@ export class RoleRepositoryAdapter implements RoleRepositoryPort {
     return RoleDbMapper.toDomain(saved);
   }
 
-  async findById(id: number): Promise<RoleEntity | null> {
+  async findById(id: string): Promise<RoleEntity | null> {
     const role = await this.prisma.roleTable.findUnique({
       where: { id },
     });
@@ -76,12 +76,13 @@ export class RoleRepositoryAdapter implements RoleRepositoryPort {
       this.prisma.roleTable.count({ where }),
     ]);
 
+    const totalPages = Math.ceil(total / limit);
     return {
       data: data.map(RoleDbMapper.toDomain),
       total,
       page,
       limit,
-      totalPages:1000,
+      totalPages,
     };
   }
 

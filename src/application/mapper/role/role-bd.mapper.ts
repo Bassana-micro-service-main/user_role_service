@@ -1,16 +1,25 @@
-import {RoleProps } from "src/domain/entities/role.entity";
 import { RoleEntity } from "src/domain/entities/role.entity";
+
+interface RoleRow {
+  id?: string;
+  public_id: string;
+  name: string;
+  description: string;
+  is_system: boolean;
+  created_at?: Date;
+  updated_at?: Date;
+}
 export class RoleDbMapper {
 
-  static toDomain(prisma: RoleProps): RoleEntity {
+  static toDomain(prisma: RoleRow): RoleEntity {
     return new RoleEntity({
       id: prisma.id,
-      publicId: prisma.publicId,
+      publicId: prisma.public_id,
       name: prisma.name,
       description: prisma.description,
-      isSystem: prisma.isSystem as boolean,
-      createdAt: prisma.createdAt,
-      updatedAt: prisma.updatedAt,
+      isSystem: prisma.is_system,
+      createdAt: prisma.created_at,
+      updatedAt: prisma.updated_at,
     });
   }
 

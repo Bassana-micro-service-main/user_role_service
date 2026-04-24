@@ -13,6 +13,7 @@ import { GetRoleValidator } from 'src/domain/service/validators/role/get-role.va
 import { DeleteRoleValidator } from 'src/domain/service/validators/role/delete-role.validator';
 import { PrismaModule } from 'src/infrastructure/database/prisma/prisma.module';
 import { RoleControllerAdapter } from 'src/adapter/in/role/role.controller.adapter';
+import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/generate.public-id.adapter';
 
 @Module({
   imports: [PrismaModule],
@@ -21,6 +22,10 @@ import { RoleControllerAdapter } from 'src/adapter/in/role/role.controller.adapt
     {
       provide: 'RoleRepositoryPort',
       useClass: RoleRepositoryAdapter,
+    },
+    {
+      provide: 'PublicIdGeneratorPort',
+      useClass: PublicIdGeneratorAdapter,
     },
     // Validators
     CreateRoleValidator,
@@ -31,13 +36,12 @@ import { RoleControllerAdapter } from 'src/adapter/in/role/role.controller.adapt
     // UseCases
     {
       provide: CreateRoleUseCase,
-      useFactory: (repo, validator, idGenerator, hasher) =>
+      useFactory: (repo, validator, idGenerator) =>
         new CreateRoleUseCase(repo, validator, idGenerator),
       inject: [
         'RoleRepositoryPort',
         CreateRoleValidator,
         'PublicIdGeneratorPort',
-        'PasswordHasherPort',
       ],
     },
 
@@ -45,28 +49,28 @@ import { RoleControllerAdapter } from 'src/adapter/in/role/role.controller.adapt
       provide: UpdateRoleUseCase,
       useFactory: (repo, validator) =>
         new UpdateRoleUseCase(repo, validator),
-      inject: ['UserRepositoryPort', UpdateRoleValidator],
+      inject: ['RoleRepositoryPort', UpdateRoleValidator],
     },
 
     {
       provide: GetRoleUseCase,
       useFactory: (repo, validator) =>
         new GetRoleUseCase(repo, validator),
-      inject: ['UserRepositoryPort', GetRoleValidator],
+      inject: ['RoleRepositoryPort', GetRoleValidator],
     },
 
     {
       provide: ListRoleUseCase,
       useFactory: (repo) =>
         new ListRoleUseCase(repo),
-      inject: ['UserRepositoryPort'],
+      inject: ['RoleRepositoryPort'],
     },
 
     {
       provide: DeleteRoleUseCase,
       useFactory: (repo, validator) =>
         new DeleteRoleUseCase(repo, validator),
-      inject: ['UserRepositoryPort', DeleteRoleValidator],
+      inject: ['RoleRepositoryPort', DeleteRoleValidator],
     },
   ],
   exports: [
