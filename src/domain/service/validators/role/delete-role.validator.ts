@@ -5,10 +5,10 @@ import { Utils } from "../../../../lib/utils.commons";
 
 export class DeleteRoleValidator {
 
-    validate(command: DeleteRoleCommand): void {
+validate(command: DeleteRoleCommand): void {
 
-        if (!Utils.nanoidRegex.test(command.publicId)) {
-            throw new BusinessError(CodesError.PUBLIC_ID_INVALID);
-        }
-    }
+if (!Utils.nanoidRegex.test(command.publicId)) {
+throw new BusinessError(CodesError.PUBLIC_ID_INVALID);
+}
+}
 }

@@ -61,8 +61,8 @@ export class RoleControllerAdapter {
 
   @Delete(':publicId')
   async delete(@Param('publicId') publicId: string) {
-    await this.deleteUser.execute({ publicId });
+    this.deleteUser.execute({ publicId });
 
-    return { message: "Role deleted successfully" };
+    return { message: "role deleted successfully" };
   }
 }

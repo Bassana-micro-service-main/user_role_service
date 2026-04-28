@@ -1,6 +1,6 @@
 
 export class Utils {
-
+// src/lib/utils.commons.ts
     // 7 a 14 chiffre
     static phoneRegex = /^\+[1-9]\d{7,14}$/;
 
@@ -11,13 +11,13 @@ export class Utils {
     static uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
     // ^[^\s@]+@[^\s@] au moins 1 caractere + @ + au moins 1 caractere + . + extension
-    static nameRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    static userIdRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // (?=.*[A-Za-z]) → au moins une lettre
     // (?=.*\d) → au moins un chiffre
     // (?=.*[^A-Za-z0-9]) → au moins un caractère spécial
     // .{8,} → longueur minimale 8
-    static descriptionRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+    static roleIdRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
 
     static isValidUrl(url: string, domain?: string): boolean {
         try {

@@ -5,10 +5,11 @@ import { Utils } from "../../../../lib/utils.commons";
 
 export class GetRoleValidator {
 
-    validate(command: GetRoleQuery): void {
+validate(command: GetRoleQuery): void {
 
-        if (!Utils.nanoidRegex.test(command.publicId)) {
-            throw new BusinessError(CodesError.PUBLIC_ID_INVALID);
-        }
-    }
+if (!Utils.nanoidRegex.test(command.publicId)) {
+throw new BusinessError(CodesError.PUBLIC_ID_INVALID);
 }
+}
+}
+

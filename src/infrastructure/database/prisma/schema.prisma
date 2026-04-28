@@ -4,15 +4,21 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-}
+ } 
 
 model RoleTable {
   id          String   @id @default(uuid())
-  public_id   String   @unique
+  publicId   String   @unique
   name        String   @unique
   description String
-  is_system   Boolean
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  isSystem   Boolean
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
-
+model UserRoleTable {
+  id          String   @id @default(uuid())
+  publicId   String   @unique
+  userId        String   @unique
+  roleId String         @unique
+  createdAt  DateTime @default(now())
+}
