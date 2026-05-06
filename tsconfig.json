@@ -22,11 +22,8 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"] 
-    }
-  }
+  "paths": {
+    "src/*": ["src/*"]
+}
 }
 }
