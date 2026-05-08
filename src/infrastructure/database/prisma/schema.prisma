@@ -5,27 +5,46 @@ generator client {
 datasource db {
   provider = "postgresql"
  } 
-
+enum ModeEnum {
+    allow
+    deny
+}
 model RoleTable {
-  id          String   @id @default(uuid())
-  publicId   String   @unique
-  name        String   @unique
-  description String
-  isSystem   Boolean
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id          String  @id @default(uuid())
+  public_id   String   @unique  
+  name        String  @unique
+  description String   @unique
+  isSystem   Boolean   @unique
+  createdAt  DateTime    @unique
+  updatedAt  DateTime   @unique
 }
 model UserRoleTable {
   id          String   @id @default(uuid())
   publicId   String   @unique
   userId        String   @unique
   roleId String         @unique
-  createdAt  DateTime @default(now())
+  createdAt  DateTime @unique
 }
 model PermissionsTable {
   id          String   @id @default(uuid())
   publicId   String   @unique
   name       String   @unique
   description String         @unique
-  createdAt  DateTime @default(now())
+  createdAt  DateTime @unique
+}
+model PermissionsOverridesTable {
+   id   String  @id @default(uuid())
+    publicId   String @unique
+    userId   String  @unique
+    permissionsId  String  @unique
+    mode  ModeEnum  @unique
+    note  String  @unique
+    createdAt  DateTime  @unique
+}
+model RolePermissionsTable {
+   id   String  @id @default(uuid())
+    publicId   String @unique
+    roleId   String  @unique
+    permissionsId  String  @unique
+    createdAt  DateTime  @unique
 }

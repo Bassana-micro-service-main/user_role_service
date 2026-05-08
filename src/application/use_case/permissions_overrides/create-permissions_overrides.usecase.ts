@@ -5,7 +5,7 @@ import { CreatePermissionsOverridesCommand, CreatePermissionsOverridesInterfaceP
 import { PublicIdGeneratorPort } from "src/domain/port/in/generate-public-id/generator-public-id.port";
 import { PermissionsOverridesRepositoryPort } from "src/domain/port/out/permissions_overrides.repository.port";
 import { CreatePermissionsOverridesValidator } from "src/domain/service/validators/permissions_overrides/create-permissions_overrides.validator";
-export class CreatePermissionsUseCase implements CreatePermissionsOverridesInterfacePort {
+export class CreatePermissionsOverridesUseCase implements CreatePermissionsOverridesInterfacePort {
 
   constructor(
     private readonly repository: PermissionsOverridesRepositoryPort,

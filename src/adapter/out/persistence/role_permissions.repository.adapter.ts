@@ -10,20 +10,20 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
 
   constructor(private readonly prisma: PrismaService) {}
   async findByPermissionsId(permissionsId: string): Promise<RolePermissionsEntity | null> {
-    const userRole = await this.prisma.permissionsTable.findFirst({
+    const userRole = await this.prisma.role_permissionsTable.findFirst({
       where: { permissionsId },
     });
     return userRole ? RolePermissionsDbMapper.toDomain(userRole) : null;
   }
   async findByRoleId(roleId: string): Promise<RolePermissionsEntity | null> {
-      const userRole = await this.prisma.permissionsTable.findFirst({
+      const userRole = await this.prisma.role_permissionsTable.findFirst({
         where: { roleId },
       });
       return userRole ? RolePermissionsDbMapper.toDomain(userRole) : null;
     }
   async findWithRoleId(query:ListRolePermissionsQuery): Promise<PaginatedResponse<RolePermissionsEntity>> {
     const {roleId, permissionsId,limit, page}=query;
-    const userRoles = await this.prisma.permissionsTable.findMany({
+    const userRoles = await this.prisma.role_permissionsTable.findMany({
       where: { name },
     });
     return userRoles.map(item => RolePermissionsDbMapper.toDomain(item));
@@ -32,7 +32,7 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
 
     const data = RolePermissionsDbMapper.toPersistence(entity);
 
-    const saved = await this.prisma.permissionsTable.upsert({
+    const saved = await this.prisma.role_permissionsTable.upsert({
       where: { public_id: entity.publicId },
       update: data,
       create: data,
@@ -42,7 +42,7 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
   }
 
   async findById(id: string): Promise<RolePermissionsEntity | null> {
-    const role = await this.prisma.permissionsTable.findUnique({
+    const role = await this.prisma.role_permissionsTable.findUnique({
       where: { id },
     });
 
@@ -50,7 +50,7 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
   }
 
   async findByPublicId(public_id: string): Promise<RolePermissionsEntity | null> {
-    const role = await this.prisma.permissionsTable.findUnique({
+    const role = await this.prisma.role_permissionsTable.findUnique({
 
       where: { public_id },
     });
@@ -60,7 +60,7 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
 
   async findByName(name: string): Promise<RolePermissionsEntity | null> {
 
-    const entity = await this.prisma.permissionsTable.findUnique({
+    const entity = await this.prisma.role_permissionsTable.findUnique({
       where: { name },
     });
 
@@ -85,13 +85,13 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
     }
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.permissionsTable.findMany({
+      this.prisma.role_permissionsTable.findMany({
         where,
         skip: (page - 1) * limit,
         take: limit,
         orderBy: { created_at: 'desc' },
       }),
-      this.prisma.permissionsTable.count({ where }),
+      this.prisma.role_permissionsTable.count({ where }),
     ]);
 
     const totalPages = Math.ceil(total / limit);
@@ -106,7 +106,7 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
 
   async delete(public_id: string): Promise<void> {
 
-    await this.prisma.permissionsTable.delete({
+    await this.prisma.role_permissionsTable.delete({
       where: { public_id },
     });
   }

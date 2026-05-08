@@ -10,20 +10,20 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
 
   constructor(private readonly prisma: PrismaService) {}
   async findByUserId(userId: string): Promise<PermissionsOverridesEntity | null> {
-    const userRole = await this.prisma.permissionsTable.findFirst({
+    const userRole = await this.prisma.permissions_overridesTable.findFirst({
       where: { userId },
     });
     return userRole ? PermissionsOverridesDbMapper.toDomain(userRole) : null;
   }
   async findWithPermissionId(query:ListPermissionsOverridesQuery): Promise<PaginatedResponse<PermissionsOverridesEntity>> {
     const {userId, permissionsId,mode,note,limit, page}=query;
-    const userRoles = await this.prisma.permissionsTable.findMany({
+    const userRoles = await this.prisma.permissions_overridesTable.findMany({
       where: { permissionsId },
     });
     return userRoles.map(item => PermissionsOverridesDbMapper.toDomain(item));
   }
   async findBymode(mode: string): Promise<PermissionsOverridesEntity | null> {
-    const userRole = await this.prisma.permissionsTable.findFirst({
+    const userRole = await this.prisma.permissions_overridesTable.findFirst({
       where: { mode },
     });
     return userRole ? PermissionsOverridesDbMapper.toDomain(userRole) : null;
@@ -44,7 +44,7 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
 
     const data = PermissionsOverridesDbMapper.toPersistence(entity);
 
-    const saved = await this.prisma.permissionsTable.upsert({
+    const saved = await this.prisma.permissions_overridesTable.upsert({
       where: { public_id: entity.publicId },
       update: data,
       create: data,
@@ -72,7 +72,7 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
 
   async findByuserId(userId: string): Promise<PermissionsOverridesEntity | null> {
 
-    const entity = await this.prisma.permissionsTable.findUnique({
+    const entity = await this.prisma.permissions_overridesTable.findUnique({
       where: { userId },
     });
 
@@ -118,7 +118,7 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
 
   async delete(public_id: string): Promise<void> {
 
-    await this.prisma.permissionsTable.delete({
+    await this.prisma.permissions_overridesTable.delete({
       where: { public_id },
     });
   }

@@ -7,7 +7,7 @@ import { PermissionsDbMapper } from 'src/application/mapper/permissions/permissi
 import { PaginatedResponse } from 'src/domain/entities/paginated-response.entity';
 import { ModeEnum } from "src/domain/enums/mode.enum";
 @Injectable()
-export class PermissionsOverridesRepositoryAdapter implements PermissionsRepositoryPort {
+export class PermissionsRepositoryAdapter implements PermissionsRepositoryPort {
 
   constructor(private readonly prisma: PrismaService) {}
   async findByName(name: string): Promise<PermissionsEntity | null> {

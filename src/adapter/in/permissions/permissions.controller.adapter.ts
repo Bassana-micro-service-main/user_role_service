@@ -1,33 +1,33 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
-import { CreateRoleDto } from "src/application/dto/role/create-role.dto";
-import { ListRoleDto } from "src/application/dto/role/list-role.dto";
-import { UpdateRoleDto } from "src/application/dto/role/update-role.dto";
+import { CreatePermissionsDto } from "src/application/dto/permissions/create-permissions.dto";
+import { ListPermissionsDto } from "src/application/dto/permissions/list-permissions.dto";
+import { UpdatePermissionsDto } from "src/application/dto/permissions/update-permissions.dto";
 import { PaginatedResponseMapper } from "src/application/mapper/paginate/paginated-response.mapper.dto";
-import { RoleHttpMapper } from "src/application/mapper/role/role-http.mapper";
-import { CreateRoleUseCase } from "src/application/use_case/role/create-role.usecase";
-import { DeleteRoleUseCase } from "src/application/use_case/role/delete-role.usecase";
-import { GetRoleUseCase } from "src/application/use_case/role/get-role.usecase";
-import { ListRoleUseCase } from "src/application/use_case/role/list-role.usecase";
-import { UpdateRoleUseCase } from "src/application/use_case/role/update-role.usecase";
+import { PermissionsHttpMapper } from "src/application/mapper/permissions/permissions-http.mapper";
+import { CreatePermissionsUseCase } from "src/application/use_case/permissions/create-permissions.usecase";
+import { DeletePermissionsUseCase } from "src/application/use_case/permissions/delete-permissions.usecase";
+import { GetPermissionsUseCase } from "src/application/use_case/permissions/get-permissions.usecase";
+import { ListPermissionsUseCase } from "src/application/use_case/permissions/list-permissions.usecase";
+import { UpdatePermissionsUseCase } from "src/application/use_case/permissions/update-permissions.usecase";
 
 
 @Controller('roles')
 export class PermissionsControllerAdapter {
   constructor(
-    private readonly createRole: CreateRoleUseCase,
-    private readonly getRole: GetRoleUseCase,
-    private readonly deleteUser: DeleteRoleUseCase,
-    private readonly updateUser: UpdateRoleUseCase,
-    private readonly listUser: ListRoleUseCase,
+    private readonly createRole: CreatePermissionsUseCase,
+    private readonly getRole: GetPermissionsUseCase,
+    private readonly deleteUser: DeletePermissionsUseCase,
+    private readonly updateUser: UpdatePermissionsUseCase,
+    private readonly listUser: ListPermissionsUseCase,
   ) { }
 
   @Post()
-  async create(@Body() dto: CreateRoleDto) {
+  async create(@Body() dto: CreatePermissionsDto) {
     const result = await this.createRole.execute(
-      RoleHttpMapper.toCreateCommand(dto)
+      PermissionsHttpMapper.toCreateCommand(dto)
     );
 
-    return RoleHttpMapper.toResponse(result);
+    return PermissionsHttpMapper.toResponse(result);
   }
 
   @Get(':publicId')
@@ -35,34 +35,34 @@ export class PermissionsControllerAdapter {
 
     const result = await this.getRole.execute({ publicId });
 
-    return RoleHttpMapper.toResponse(result!);
+    return PermissionsHttpMapper.toResponse(result!);
   }
 
   @Get()
-  async list(@Query() dto: ListRoleDto) {
-    const query = RoleHttpMapper.toListQuery(dto);
+  async list(@Query() dto: ListPermissionsDto) {
+    const query = PermissionsHttpMapper.toListQuery(dto);
 
     const result = await this.listUser.execute(query);
 
     return PaginatedResponseMapper.toPaginatedDto(
       result, 
-      RoleHttpMapper.toResponse);
+      PermissionsHttpMapper.toResponse);
   }
 
   @Patch(':publicId')
   async update(
     @Param('publicId') publicId: string,
-    @Body() dto: UpdateRoleDto) {
-    const command = RoleHttpMapper.toUpdateCommand(dto);
+    @Body() dto: UpdatePermissionsDto) {
+    const command = PermissionsHttpMapper.toUpdateCommand(dto);
     const result = await this.updateUser.execute({ publicId }, command);
 
-    return RoleHttpMapper.toResponse(result);
+    return PermissionsHttpMapper.toResponse(result);
   }
 
   @Delete(':publicId')
   async delete(@Param('publicId') publicId: string) {
     this.deleteUser.execute({ publicId });
 
-    return { message: "role deleted successfully" };
+    return { message: "permissions deleted successfully" };
   }
 }

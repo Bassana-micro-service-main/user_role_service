@@ -79,4 +79,4 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
     DeletePermissionsUseCase,
   ],
 })
-export class RoleModule { }
+export class PermissionsModule { }

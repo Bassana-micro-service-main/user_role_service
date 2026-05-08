@@ -3,11 +3,11 @@ import { CreateRolePermissionsDto } from "src/application/dto/role_permissions/c
 import { ListRolePermissionsDto } from "src/application/dto/role_permissions/list-role_permissions.dto";
 import { UpdateRolePermissionsDto } from "src/application/dto/role_permissions/update-role_permissions.dto";
 import { PaginatedResponseMapper } from "src/application/mapper/paginate/paginated-response.mapper.dto";
-import { CreateRolePermissionsUseCase } from 'src/application/use_case/role_permissions/create-role_permissions.usecase';
-import { UpdateRolePermissionsUseCase } from 'src/application/use_case/role_permissions/update-role_permissions.usecase';
-import { GetRolePermissionsUseCase } from 'src/application/use_case/role_permissions/get-role_permissions.usecase';
-import { ListRolePermissionsUseCase } from 'src/application/use_case/role_permissions/list-role_permissions.usecase';
-import { DeleteRolePermissionsUseCase } from 'src/application/use_case/role_permissions/delete-role_permissions.usecase';
+import { CreateRolePermissionsUseCase } from 'src/application/use_case/role_permissions /create-role_permissions.usecase';
+import { UpdateRolePermissionsUseCase } from 'src/application/use_case/role_permissions /update-role_permissions.usecase';
+import { GetRolePermissionsUseCase } from 'src/application/use_case/role_permissions /get-role_permissions.usecase';
+import { ListRolePermissionsUseCase } from 'src/application/use_case/role_permissions /list-role_permissions.usecase';
+import { DeleteRolePermissionsUseCase } from 'src/application/use_case/role_permissions /delete-role_permissions.usecase';
 import { RolePermissionsHttpMapper } from "src/application/mapper/role_permissions/role_permissions-http.mapper";
 
 @Controller('user_roles')

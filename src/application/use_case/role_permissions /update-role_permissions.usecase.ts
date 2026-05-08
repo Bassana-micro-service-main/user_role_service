@@ -6,7 +6,7 @@ import { UpdateRolePermissionsCommand, UpdateRolePermissionsInterfacePort } from
 import { RolePermissionsRepositoryPort } from "src/domain/port/out/role_permissions.repository.port";
 import { UpdateRolePermissionsValidator } from "src/domain/service/validators/role_permissions/update-role_permissions.validator";
 
-export class UpdatePermissionsUseCase implements UpdateRolePermissionsInterfacePort {
+export class UpdateRolePermissionsUseCase implements UpdateRolePermissionsInterfacePort {
 
     constructor(
         private readonly repository: RolePermissionsRepositoryPort,
