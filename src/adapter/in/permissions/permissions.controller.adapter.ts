@@ -11,7 +11,7 @@ import { ListPermissionsUseCase } from "src/application/use_case/permissions/lis
 import { UpdatePermissionsUseCase } from "src/application/use_case/permissions/update-permissions.usecase";
 
 
-@Controller('roles')
+@Controller("permissions")
 export class PermissionsControllerAdapter {
   constructor(
     private readonly createRole: CreatePermissionsUseCase,

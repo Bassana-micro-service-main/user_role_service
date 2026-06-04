@@ -10,7 +10,7 @@ import { ListRolePermissionsUseCase } from 'src/application/use_case/role_permis
 import { DeleteRolePermissionsUseCase } from 'src/application/use_case/role_permissions /delete-role_permissions.usecase';
 import { RolePermissionsHttpMapper } from "src/application/mapper/role_permissions/role_permissions-http.mapper";
 
-@Controller('user_roles')
+@Controller("role-permissions")
 export class RolePermissionsControllerAdapter {
   constructor(
     private readonly createUserRole: CreateRolePermissionsUseCase,

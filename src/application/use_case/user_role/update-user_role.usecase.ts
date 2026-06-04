@@ -4,7 +4,7 @@ import { UserRoleEntity } from "src/domain/entities/user_role.entity";
 import { GetUserRoleQuery } from "src/domain/port/in/user_role/get-user_role.interface.port";
 import { UpdateUserRoleCommand, UpdateUserRoleInterfacePort } from "src/domain/port/in/user_role/update-user_role.interface.port";
 import { UserRoleRepositoryPort } from "src/domain/port/out/user_role.repository.port";
-import { UpdateUserRoleValidator } from "src/domain/service/validators/role/user_role/update-user_role.validator";
+import { UpdateUserRoleValidator } from "src/domain/service/validators/user_role/update-user_role.validator";
 
 export class UpdateUserRoleUseCase implements UpdateUserRoleInterfacePort {
 

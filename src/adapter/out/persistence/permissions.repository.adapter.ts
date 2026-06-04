@@ -5,7 +5,6 @@ import { ListPermissionsQuery } from 'src/domain/port/in/permissions/list-permis
 import { PrismaService } from 'src/infrastructure/database/prisma/prisma.service';
 import { PermissionsDbMapper } from 'src/application/mapper/permissions/permissions-bd.mapper';
 import { PaginatedResponse } from 'src/domain/entities/paginated-response.entity';
-import { ModeEnum } from "src/domain/enums/mode.enum";
 @Injectable()
 export class PermissionsRepositoryAdapter implements PermissionsRepositoryPort {
 
@@ -21,14 +20,6 @@ export class PermissionsRepositoryAdapter implements PermissionsRepositoryPort {
       where: { description},
     });
     return userRole ? PermissionsDbMapper.toDomain(userRole) : null;
-  }
-  
-  async findWithDescription(query:ListPermissionsQuery): Promise<PaginatedResponse<PermissionsEntity>> {
-    const { description,name,limit, page}=query;
-    const userRoles = await this.prisma.permissionsTable.findMany({
-      where: { description },
-    });
-    return userRoles.map(item => PermissionsDbMapper.toDomain(item));
   }
   async save(entity: PermissionsEntity): Promise<PermissionsEntity> {
 
@@ -69,12 +60,7 @@ export class PermissionsRepositoryAdapter implements PermissionsRepositoryPort {
       where.name = name;
     }
 
-    if (description) {
-      where.name = {
-        contains:description,
-        mode: 'insensitive',
-      };
-    }
+    if (description) where.description = { contains: description, mode: 'insensitive' };
 
     const [data, total] = await this.prisma.$transaction([
       this.prisma.permissionsTable.findMany({

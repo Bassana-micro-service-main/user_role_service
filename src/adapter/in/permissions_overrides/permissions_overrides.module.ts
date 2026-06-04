@@ -18,7 +18,7 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
   controllers: [PermissionsOverridesControllerAdapter],
   providers: [
     {
-      provide: 'RoleRepositoryPort',
+      provide: 'PermissionsOverridesRepositoryPort',
       useClass: PermissionsOverridesRepositoryAdapter,
     },
     {
@@ -37,7 +37,7 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
       useFactory: (repo, validator, idGenerator) =>
         new CreatePermissionsOverridesUseCase(repo, validator, idGenerator),
       inject: [
-        'PermissionsRepositoryPort',
+        'PermissionsOverridesRepositoryPort',
         CreatePermissionsOverridesValidator,
         'PublicIdGeneratorPort',
       ],
@@ -47,28 +47,28 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
       provide: UpdatePermissionsOverridesUseCase,
       useFactory: (repo, validator) =>
         new UpdatePermissionsOverridesUseCase(repo, validator),
-      inject: ['PermissionsRepositoryPort', UpdatePermissionsOverridesValidator],
+      inject: ['PermissionsOverridesRepositoryPort', UpdatePermissionsOverridesValidator],
     },
 
     {
       provide: GetPermissionsOverridesUseCase,
       useFactory: (repo, validator) =>
         new GetPermissionsOverridesUseCase(repo, validator),
-      inject: ['UserRoleRepositoryPort', GetPermissionsOverridesValidator],
+      inject: ['PermissionsOverridesRepositoryPort', GetPermissionsOverridesValidator],
     },
 
     {
       provide: ListPermissionsOverridesUseCase,
       useFactory: (repo) =>
         new ListPermissionsOverridesUseCase(repo),
-      inject: ['UserRoleRepositoryPort'],
+      inject: ['PermissionsOverridesRepositoryPort'],
     },
 
     {
       provide: DeletePermissionsOverridesUseCase,
       useFactory: (repo, validator) =>
         new DeletePermissionsOverridesUseCase(repo, validator),
-      inject: ['UserRoleRepositoryPort', DeletePermissionsOverridesValidator],
+      inject: ['PermissionsOverridesRepositoryPort', DeletePermissionsOverridesValidator],
     },
   ],
   exports: [
@@ -79,4 +79,4 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
     DeletePermissionsOverridesUseCase,
   ],
 })
-export class RoleModule { }
+export class PermissionsOverridesModule { }

@@ -18,7 +18,7 @@ import { DeleteRolePermissionsUseCase } from 'src/application/use_case/role_perm
   controllers: [RolePermissionsControllerAdapter],
   providers: [
     {
-      provide: 'RoleRepositoryPort',
+      provide: 'RolePermissionsRepositoryPort',
       useClass: RolePermissionsRepositoryAdapter,
     },
     {
@@ -37,7 +37,7 @@ import { DeleteRolePermissionsUseCase } from 'src/application/use_case/role_perm
       useFactory: (repo, validator, idGenerator) =>
         new CreateRolePermissionsUseCase(repo, validator, idGenerator),
       inject: [
-        'RoleRepositoryPort',
+        'RolePermissionsRepositoryPort',
         CreateRolePermissionsValidator,
         'PublicIdGeneratorPort',
       ],
@@ -47,28 +47,28 @@ import { DeleteRolePermissionsUseCase } from 'src/application/use_case/role_perm
       provide: UpdateRolePermissionsUseCase,
       useFactory: (repo, validator) =>
         new UpdateRolePermissionsUseCase(repo, validator),
-      inject: ['UserRoleRepositoryPort', UpdateRolePermissionsValidator],
+      inject: ['RolePermissionsRepositoryPort', UpdateRolePermissionsValidator],
     },
 
     {
       provide: GetRolePermissionsUseCase,
       useFactory: (repo, validator) =>
         new GetRolePermissionsUseCase(repo, validator),
-      inject: ['UserRoleRepositoryPort', GetRolePermissionsValidator],
+      inject: ['RolePermissionsRepositoryPort', GetRolePermissionsValidator],
     },
 
     {
       provide: ListRolePermissionsUseCase,
       useFactory: (repo) =>
         new ListRolePermissionsUseCase(repo),
-      inject: ['UserRoleRepositoryPort'],
+      inject: ['RolePermissionsRepositoryPort'],
     },
 
     {
       provide: DeleteRolePermissionsUseCase,
       useFactory: (repo, validator) =>
         new DeleteRolePermissionsUseCase(repo, validator),
-      inject: ['UserRoleRepositoryPort', DeleteRolePermissionsValidator],
+      inject: ['RolePermissionsRepositoryPort', DeleteRolePermissionsValidator],
     },
   ],
   exports: [

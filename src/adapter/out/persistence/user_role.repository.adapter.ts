@@ -15,12 +15,29 @@ export class UserRoleRepositoryAdapter implements UserRoleRepositoryPort {
     });
     return userRole ? UserRoleDbMapper.toDomain(userRole) : null;
   }
-  async findWithRoleId(query:ListUserRoleQuery): Promise<PaginatedResponse<UserRoleEntity>> {
-    const {roleId, userId,limit, page}=query;
-    const userRoles = await this.prisma.user_roleTable.findMany({
-      where: { roleId },
-    });
-    return userRoles.map(item => UserRoleDbMapper.toDomain(item));
+  async findWithRoleId(query: ListUserRoleQuery): Promise<PaginatedResponse<UserRoleEntity>> {
+    const where: Record<string, unknown> = {};
+    if (query.roleId) where.roleId = query.roleId;
+    if (query.userId) where.userId = query.userId;
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.user_roleTable.findMany({
+        where,
+        skip: (query.page - 1) * query.limit,
+        take: query.limit,
+        orderBy: { created_at: 'desc' },
+      }),
+      this.prisma.user_roleTable.count({ where }),
+    ]);
+
+    const totalPages = Math.ceil(total / query.limit);
+    return {
+      data: data.map(UserRoleDbMapper.toDomain),
+      total,
+      page: query.page,
+      limit: query.limit,
+      totalPages,
+    };
   }
   async save(entity: UserRoleEntity): Promise<UserRoleEntity> {
 
@@ -52,15 +69,6 @@ export class UserRoleRepositoryAdapter implements UserRoleRepositoryPort {
     return role ? UserRoleDbMapper.toDomain(role) : null;
   }
 
-  async findByName(name: string): Promise<UserRoleEntity | null> {
-
-    const entity = await this.prisma.user_roleTable.findUnique({
-      where: { name },
-    });
-
-    return entity ? UserRoleDbMapper.toDomain(entity) : null;
-  }
-
   async findWithPagination(query: ListUserRoleQuery): Promise<PaginatedResponse<UserRoleEntity>> {
 
     const { page, limit, userId, roleId} = query;
@@ -72,10 +80,7 @@ export class UserRoleRepositoryAdapter implements UserRoleRepositoryPort {
     }
 
     if (roleId) {
-      where.roleId = {
-        contains: roleId,
-        mode: 'insensitive',
-      };
+      where.roleId = roleId;
     }
 
     const [data, total] = await this.prisma.$transaction([

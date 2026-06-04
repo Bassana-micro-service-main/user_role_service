@@ -5,6 +5,7 @@ import { ListPermissionsOverridesQuery } from 'src/domain/port/in/permissions_ov
 import { PrismaService } from 'src/infrastructure/database/prisma/prisma.service';
 import { PermissionsOverridesDbMapper } from 'src/application/mapper/permissions_overrides/permissions_overrides-bd.mapper';
 import { PaginatedResponse } from 'src/domain/entities/paginated-response.entity';
+import { ModeEnum } from 'src/domain/enums/mode.enum';
 @Injectable()
 export class PermissionsOverridesRepositoryAdapter implements PermissionsOverridesRepositoryPort {
 
@@ -15,27 +16,20 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
     });
     return userRole ? PermissionsOverridesDbMapper.toDomain(userRole) : null;
   }
-  async findWithPermissionId(query:ListPermissionsOverridesQuery): Promise<PaginatedResponse<PermissionsOverridesEntity>> {
-    const {userId, permissionsId,mode,note,limit, page}=query;
-    const userRoles = await this.prisma.permissions_overridesTable.findMany({
-      where: { permissionsId },
-    });
-    return userRoles.map(item => PermissionsOverridesDbMapper.toDomain(item));
-  }
-  async findBymode(mode: string): Promise<PermissionsOverridesEntity | null> {
+  async findBymode(mode: ModeEnum): Promise<PermissionsOverridesEntity | null> {
     const userRole = await this.prisma.permissions_overridesTable.findFirst({
       where: { mode },
     });
     return userRole ? PermissionsOverridesDbMapper.toDomain(userRole) : null;
   }
   async findBynote(note: string): Promise<PermissionsOverridesEntity | null> {
-    const userRole = await this.prisma.permissionsTable.findFirst({
+    const userRole = await this.prisma.permissions_overridesTable.findFirst({
       where: { note },
     });
     return userRole ? PermissionsOverridesDbMapper.toDomain(userRole) : null;
   }
   async findByPermissionsId(permissionsId: string): Promise<PermissionsOverridesEntity | null> {
-    const userRole = await this.prisma.permissionsTable.findFirst({
+    const userRole = await this.prisma.permissions_overridesTable.findFirst({
       where: { permissionsId },
     });
     return userRole ? PermissionsOverridesDbMapper.toDomain(userRole) : null;
@@ -54,7 +48,7 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
   }
 
   async findById(id: string): Promise<PermissionsOverridesEntity | null> {
-    const role = await this.prisma.permissionsTable.findUnique({
+    const role = await this.prisma.permissions_overridesTable.findUnique({
       where: { id },
     });
 
@@ -62,7 +56,7 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
   }
 
   async findByPublicId(public_id: string): Promise<PermissionsOverridesEntity | null> {
-    const permissions_overrides = await this.prisma.permissionsTable.findUnique({
+    const permissions_overrides = await this.prisma.permissions_overridesTable.findUnique({
 
       where: { public_id },
     });
@@ -70,18 +64,9 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
     return permissions_overrides ? PermissionsOverridesDbMapper.toDomain(permissions_overrides) : null;
   }
 
-  async findByuserId(userId: string): Promise<PermissionsOverridesEntity | null> {
-
-    const entity = await this.prisma.permissions_overridesTable.findUnique({
-      where: { userId },
-    });
-
-    return entity ? PermissionsOverridesDbMapper.toDomain(entity) : null;
-  }
-
   async findWithPagination(query: ListPermissionsOverridesQuery): Promise<PaginatedResponse<PermissionsOverridesEntity>> {
 
-    const { page, limit, userId, permissionsId,mode,note} = query;
+    const { page, limit, userId, permissionsId, mode, note } = query;
 
     const where: any = {};
 
@@ -89,21 +74,18 @@ export class PermissionsOverridesRepositoryAdapter implements PermissionsOverrid
       where.userId = userId;
     }
 
-    if (permissionsId) {
-      where.userId = {
-        contains: permissionsId,
-        mode: 'insensitive',
-      };
-    }
+    if (permissionsId) where.permissionsId = permissionsId;
+    if (mode) where.mode = mode;
+    if (note) where.note = { contains: note, mode: 'insensitive' };
 
     const [data, total] = await this.prisma.$transaction([
-      this.prisma.permissionsTable.findMany({
+      this.prisma.permissions_overridesTable.findMany({
         where,
         skip: (page - 1) * limit,
         take: limit,
         orderBy: { created_at: 'desc' },
       }),
-      this.prisma.permissionsTable.count({ where }),
+      this.prisma.permissions_overridesTable.count({ where }),
     ]);
 
     const totalPages = Math.ceil(total / limit);

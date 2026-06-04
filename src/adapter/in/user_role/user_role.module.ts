@@ -19,7 +19,7 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
   controllers: [UserRoleControllerAdapter],
   providers: [
     {
-      provide: 'RoleRepositoryPort',
+      provide: 'UserRoleRepositoryPort',
       useClass: UserRoleRepositoryAdapter,
     },
     {
@@ -38,7 +38,7 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
       useFactory: (repo, validator, idGenerator) =>
         new CreateUserRoleUseCase(repo, validator, idGenerator),
       inject: [
-        'RoleRepositoryPort',
+        'UserRoleRepositoryPort',
         CreateUserRoleValidator,
         'PublicIdGeneratorPort',
       ],
@@ -80,4 +80,4 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
     DeleteUserRoleUseCase,
   ],
 })
-export class RoleModule { }
+export class UserRoleModule { }

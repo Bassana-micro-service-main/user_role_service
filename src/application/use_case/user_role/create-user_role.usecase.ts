@@ -4,7 +4,7 @@ import { UserRoleEntity } from "src/domain/entities/user_role.entity";
 import { CreateUserRoleCommand, CreateUserRoleInterfacePort } from "src/domain/port/in/user_role/create-user_role.interface.port";
 import { PublicIdGeneratorPort } from "src/domain/port/in/generate-public-id/generator-public-id.port";
 import { UserRoleRepositoryPort } from "src/domain/port/out/user_role.repository.port";
-import { CreateUserRoleValidator } from "src/domain/service/validators/role/user_role/create-user_role.validator";
+import { CreateUserRoleValidator } from "src/domain/service/validators/user_role/create-user_role.validator";
 export class CreateUserRoleUseCase implements CreateUserRoleInterfacePort {
 
   constructor(

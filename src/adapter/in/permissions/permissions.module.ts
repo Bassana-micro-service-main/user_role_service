@@ -18,7 +18,7 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
   controllers: [PermissionsControllerAdapter],
   providers: [
     {
-      provide: 'RoleRepositoryPort',
+      provide: 'PermissionsRepositoryPort',
       useClass: PermissionsRepositoryAdapter,
     },
     {
@@ -54,21 +54,21 @@ import { PublicIdGeneratorAdapter } from 'src/adapter/in/generate-public-id/gene
       provide: GetPermissionsUseCase,
       useFactory: (repo, validator) =>
         new GetPermissionsUseCase(repo, validator),
-      inject: ['UserRoleRepositoryPort', GetPermissionsValidator],
+      inject: ['PermissionsRepositoryPort', GetPermissionsValidator],
     },
 
     {
       provide: ListPermissionsUseCase,
       useFactory: (repo) =>
         new ListPermissionsUseCase(repo),
-      inject: ['UserRoleRepositoryPort'],
+      inject: ['PermissionsRepositoryPort'],
     },
 
     {
       provide: DeletePermissionsUseCase,
       useFactory: (repo, validator) =>
         new DeletePermissionsUseCase(repo, validator),
-      inject: ['UserRoleRepositoryPort', DeletePermissionsValidator],
+      inject: ['PermissionsRepositoryPort', DeletePermissionsValidator],
     },
   ],
   exports: [

@@ -4,47 +4,53 @@ generator client {
 
 datasource db {
   provider = "postgresql"
- } 
+}
+
 enum ModeEnum {
-    allow
-    deny
+  allow
+  deny
 }
-model RoleTable {
-  id          String  @id @default(uuid())
-  public_id   String   @unique  
-  name        String  @unique
-  description String   @unique
-  isSystem   Boolean   @unique
-  createdAt  DateTime    @unique
-  updatedAt  DateTime   @unique
-}
-model UserRoleTable {
+
+model roleTable {
   id          String   @id @default(uuid())
-  publicId   String   @unique
-  userId        String   @unique
-  roleId String         @unique
-  createdAt  DateTime @unique
+  public_id   String   @unique
+  name        String   @unique
+  description String
+  is_system   Boolean
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }
-model PermissionsTable {
+
+model user_roleTable {
+  id         String   @id @default(uuid())
+  public_id  String   @unique
+  userId     String
+  roleId     String
+  created_at DateTime @default(now())
+}
+
+model permissionsTable {
   id          String   @id @default(uuid())
-  publicId   String   @unique
-  name       String   @unique
-  description String         @unique
-  createdAt  DateTime @unique
+  public_id   String   @unique
+  name        String
+  description String
+  created_at  DateTime @default(now())
 }
-model PermissionsOverridesTable {
-   id   String  @id @default(uuid())
-    publicId   String @unique
-    userId   String  @unique
-    permissionsId  String  @unique
-    mode  ModeEnum  @unique
-    note  String  @unique
-    createdAt  DateTime  @unique
+
+model permissions_overridesTable {
+  id            String   @id @default(uuid())
+  public_id     String   @unique
+  userId        String
+  permissionsId String
+  mode          ModeEnum
+  note          String
+  created_at    DateTime @default(now())
 }
-model RolePermissionsTable {
-   id   String  @id @default(uuid())
-    publicId   String @unique
-    roleId   String  @unique
-    permissionsId  String  @unique
-    createdAt  DateTime  @unique
+
+model role_permissionsTable {
+  id            String   @id @default(uuid())
+  public_id     String   @unique
+  roleId        String
+  permissionsId String
+  created_at    DateTime @default(now())
 }

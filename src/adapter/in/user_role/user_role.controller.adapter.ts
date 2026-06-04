@@ -10,7 +10,7 @@ import { ListUserRoleUseCase } from "src/application/use_case/user_role/list-use
 import { UpdateUserRoleUseCase } from "src/application/use_case/user_role/update-user_role.usecase";
 import { UserRoleHttpMapper } from "src/application/mapper/user_role/user_role-http.mapper";
 
-@Controller('user_roles')
+@Controller("user-roles")
 export class UserRoleControllerAdapter {
   constructor(
     private readonly createUserRole: CreateUserRoleUseCase,

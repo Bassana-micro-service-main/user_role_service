@@ -21,13 +21,6 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
       });
       return userRole ? RolePermissionsDbMapper.toDomain(userRole) : null;
     }
-  async findWithRoleId(query:ListRolePermissionsQuery): Promise<PaginatedResponse<RolePermissionsEntity>> {
-    const {roleId, permissionsId,limit, page}=query;
-    const userRoles = await this.prisma.role_permissionsTable.findMany({
-      where: { name },
-    });
-    return userRoles.map(item => RolePermissionsDbMapper.toDomain(item));
-  }
   async save(entity: RolePermissionsEntity): Promise<RolePermissionsEntity> {
 
     const data = RolePermissionsDbMapper.toPersistence(entity);
@@ -58,31 +51,15 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
     return role ? RolePermissionsDbMapper.toDomain(role) : null;
   }
 
-  async findByName(name: string): Promise<RolePermissionsEntity | null> {
-
-    const entity = await this.prisma.role_permissionsTable.findUnique({
-      where: { name },
-    });
-
-    return entity ? RolePermissionsDbMapper.toDomain(entity) : null;
-  }
-
   async findWithPagination(query: ListRolePermissionsQuery): Promise<PaginatedResponse<RolePermissionsEntity>> {
 
     const { page, limit, roleId, permissionsId} = query;
 
     const where: any = {};
 
-    if (roleId) {
-      where.name = roleId;
-    }
+    if (roleId) where.roleId = roleId;
 
-    if (permissionsId) {
-      where.roleId = {
-        contains: permissionsId,
-        mode:'insensitive',
-      };
-    }
+    if (permissionsId) where.permissionsId = permissionsId;
 
     const [data, total] = await this.prisma.$transaction([
       this.prisma.role_permissionsTable.findMany({

@@ -2,7 +2,7 @@ import { ApplicationError } from "src/application/errors/application.error";
 import { CodesError } from "src/application/errors/codes.error";
 import { DeleteUserRoleCommand, DeleteUserRoleInterfacePort } from "src/domain/port/in/user_role/delete-user_role.interface.port";
 import { UserRoleRepositoryPort } from "src/domain/port/out/user_role.repository.port";
-import { DeleteUserRoleValidator } from "src/domain/service/validators/role/user_role/delete-user_role.validator";
+import { DeleteUserRoleValidator } from "src/domain/service/validators/user_role/delete-user_role.validator";
 
 export class DeleteUserRoleUseCase implements DeleteUserRoleInterfacePort {
 

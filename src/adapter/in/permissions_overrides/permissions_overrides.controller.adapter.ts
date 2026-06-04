@@ -11,7 +11,7 @@ import { ListPermissionsOverridesUseCase } from "src/application/use_case/permis
 import { UpdatePermissionsOverridesUseCase } from "src/application/use_case/permissions_overrides/update-permissions_overrides.usecase";
 
 
-@Controller('roles')
+@Controller("permissions-overrides")
 export class PermissionsOverridesControllerAdapter {
   constructor(
     private readonly createRole: CreatePermissionsOverridesUseCase,

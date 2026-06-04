@@ -5,7 +5,7 @@ interface PermissionsOverridesRow {
   public_id: string;
   userId: string;
   permissionsId: string;
-  mode:ModeEnum;
+  mode: string;
   note:string;
   created_at?: Date;
 }
@@ -17,7 +17,7 @@ export class PermissionsOverridesDbMapper {
       publicId: prisma.public_id,
       userId: prisma.userId,
       permissionsId: prisma.permissionsId,
-      mode:prisma.mode,
+      mode: prisma.mode as ModeEnum,
       note:prisma.note,
       createdAt: prisma.created_at,
     });
