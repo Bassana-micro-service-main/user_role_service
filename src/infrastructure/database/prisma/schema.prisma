@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ModeEnum {
+  allow
+  deny
+}
+
+model roleTable {
+  id          String   @id @default(uuid())
+  public_id   String   @unique
+  name        String   @unique
+  description String
+  is_system   Boolean
+  is_active   Boolean  @default(true)
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}
+
+model user_roleTable {
+  id         String   @id @default(uuid())
+  public_id  String   @unique
+  userId     String
+  roleId     String
+  created_at DateTime @default(now())
+}
+
+model permissionsTable {
+  id          String   @id @default(uuid())
+  public_id   String   @unique
+  name        String
+  description String
+  created_at  DateTime @default(now())
+}
+
+model permissions_overridesTable {
+  id            String   @id @default(uuid())
+  public_id     String   @unique
+  userId        String
+  permissionsId String
+  mode          ModeEnum
+  note          String
+  created_at    DateTime @default(now())
+}
+
+model role_permissionsTable {
+  id            String   @id @default(uuid())
+  public_id     String   @unique
+  roleId        String
+  permissionsId String
+  created_at    DateTime @default(now())
+}

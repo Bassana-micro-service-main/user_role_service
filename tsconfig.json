@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "node"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,
@@ -21,6 +21,16 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": false,
     "strictBindCallApply": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "strict": true
+  },
+  "include": [
+    "src",
+    "__tests__",
+    "node_modules/@prisma/client",
+    "node_modules/.prisma/client"
+  ]
 }

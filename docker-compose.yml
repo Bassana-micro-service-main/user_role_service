@@ -3,28 +3,31 @@ services:
 # ENV DEV
 # =====================================================================================
 
-  activity-service-dev:
-    container_name: activity-service-dev
+  user_role-service-dev:
+    image: user_role-service-dev
+    container_name: user_role-service-dev
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: npm run start:dev
+    command: sh -c "pnpm exec prisma migrate deploy && pnpm exec prisma generate && pnpm run start:dev"
     ports:
       - "3000:3000"
     volumes:
       - .:/app
       - /app/node_modules
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@user_role-db-dev:5432/user_role-db
     env_file:
-      - ./src/infrastructure/config/.env.dev
+      - .env
     depends_on:
-      - activity-db-dev
+      - user_role-db-dev
     profiles: ["dev"]
 
-  activity-db-dev:
-    image: postgres:18
-    container_name: activity-db-dev
+  user_role-db-dev:
+    image: postgres:16
+    container_name: user_role-db-dev
     env_file:
-      - ./src/infrastructure/config/.env.dev
+      - .env
     ports:
       - "5433:5432"
     volumes:
@@ -36,23 +39,24 @@ services:
 # ENV PROD
 # =====================================================================================
 
-  activity-service-prod:
-    container_name: activity-service-prod
+  user_role-service-prod:
+    container_name: user_role-service-prod
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
+      - "5555:5555"
     env_file:
       - ./src/infrastructure/config/.env.prod
     depends_on:
-      - activity-db-prod
+      - user_role-db-prod
     restart: unless-stopped
     profiles: ["prod"]
 
-  activity-db-prod:
-    image: postgres:18
-    container_name: activity-db-prod
+  user_role-db-prod:
+    image: postgres:16
+    container_name: user_role-db-prod
     env_file:
       - ./src/infrastructure/config/.env.prod
     volumes:
