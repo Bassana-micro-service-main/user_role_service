@@ -4,6 +4,7 @@ export interface CreateRoleCommand {
     name: string;
     description: string;
     isSystem: boolean;
+    isActive?: boolean;
 }
 
 export interface CreateRoleInterfacePort {

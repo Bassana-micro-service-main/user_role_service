@@ -19,4 +19,8 @@ export class UpdateRoleDto {
   @IsOptional()
   @IsBoolean()
   isSystem?: boolean;
+
+  @IsOptional()
+  @IsBoolean()
+  isActive?: boolean;
 }

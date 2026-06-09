@@ -21,6 +21,16 @@ export class RolePermissionsRepositoryAdapter implements RolePermissionsReposito
       });
       return userRole ? RolePermissionsDbMapper.toDomain(userRole) : null;
     }
+
+  async findByRoleIdAndPermissionsId(
+    roleId: string,
+    permissionsId: string,
+  ): Promise<RolePermissionsEntity | null> {
+    const link = await this.prisma.role_permissionsTable.findFirst({
+      where: { roleId, permissionsId },
+    });
+    return link ? RolePermissionsDbMapper.toDomain(link) : null;
+  }
   async save(entity: RolePermissionsEntity): Promise<RolePermissionsEntity> {
 
     const data = RolePermissionsDbMapper.toPersistence(entity);

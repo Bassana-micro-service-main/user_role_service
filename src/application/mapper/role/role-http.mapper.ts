@@ -15,15 +15,17 @@ export class RoleHttpMapper {
       name: dto.name,
       description: dto.description,
       isSystem: dto.isSystem,
+      isActive: dto.isActive,
     };
   }
 
   static toUpdateCommand(dto: UpdateRoleDto): UpdateRoleCommand {
-    return {
-      name: dto.name,
-      description: dto.description,
-      isSystem: dto.isSystem,
-    };
+    const command: UpdateRoleCommand = {};
+    if (dto.name !== undefined) command.name = dto.name;
+    if (dto.description !== undefined) command.description = dto.description;
+    if (dto.isSystem !== undefined) command.isSystem = dto.isSystem;
+    if (dto.isActive !== undefined) command.isActive = dto.isActive;
+    return command;
   }
 
   static toGetQuery(dto: GetRoleDto): GetRoleQuery {
@@ -37,6 +39,7 @@ export class RoleHttpMapper {
       page: dto.page,
       limit: dto.limit,
       isSystem: dto.isSystem,
+      isActive: dto.isActive,
       name: dto.name,
     };
   }
@@ -47,6 +50,7 @@ export class RoleHttpMapper {
       name: entity.name,
       description: entity.description,
       isSystem:entity.isSystem,
+      isActive: entity.isActive,
     };
   }
 }

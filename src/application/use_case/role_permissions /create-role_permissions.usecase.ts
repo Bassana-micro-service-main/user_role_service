@@ -16,9 +16,12 @@ export class CreateRolePermissionsUseCase implements CreateRolePermissionsInterf
   async execute(command: CreateRolePermissionsCommand): Promise<RolePermissionsEntity> {
     this.validator.validate(command);
 
-    const existing = await this.repository.findByRoleId(command.roleId);
+    const existing = await this.repository.findByRoleIdAndPermissionsId(
+      command.roleId,
+      command.permissionsId,
+    );
     if (existing) {
-      throw new ApplicationError(CodesError.ROLE_NOT_FOUND);
+      throw new ApplicationError(CodesError.ROLE_PERMISSION_ALREADY_EXISTS);
     }
     const role_permissions = new RolePermissionsEntity({
       publicId: this.publicIdGenerator.generateNanoid(),

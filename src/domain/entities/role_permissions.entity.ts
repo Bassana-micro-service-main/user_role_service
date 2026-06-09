@@ -21,7 +21,7 @@ export class RolePermissionsEntity {
         }
     
         get permissionsId(): string {
-            return this.props.roleId;
+            return this.props.permissionsId;
         }
         update(updates: Partial<RolePermissionsProps>): RolePermissionsEntity {
             Object.assign(this.props, updates);

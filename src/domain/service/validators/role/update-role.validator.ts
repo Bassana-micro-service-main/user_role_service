@@ -15,5 +15,9 @@ throw new BusinessError(CodesError.ROLE_DESCRIPTION_INVALID);
 if (command.isSystem !== undefined && typeof command.isSystem !== "boolean") {
 throw new BusinessError(CodesError.ROLE_IS_SYSTEM_INVALID);
 }
+
+if (command.isActive !== undefined && typeof command.isActive !== "boolean") {
+throw new BusinessError(CodesError.ROLE_IS_SYSTEM_INVALID);
+}
 }
 }

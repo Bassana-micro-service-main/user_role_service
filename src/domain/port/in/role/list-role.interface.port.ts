@@ -6,6 +6,7 @@ export interface ListRoleQuery {
     limit: number;
     description?: string;
     isSystem?: boolean;
+    isActive?: boolean;
     name?: string;
 }
 

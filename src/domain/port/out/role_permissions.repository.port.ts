@@ -10,6 +10,10 @@ export interface RolePermissionsRepositoryPort {
     findByPublicId(publicId: string): Promise<RolePermissionsEntity | null>;
 
     findByRoleId(roleId: string): Promise<RolePermissionsEntity | null>;
+    findByRoleIdAndPermissionsId(
+        roleId: string,
+        permissionsId: string,
+    ): Promise<RolePermissionsEntity | null>;
     findByPermissionsId(permissionsId: string): Promise<RolePermissionsEntity | null>;
     findWithPagination(query: ListRolePermissionsQuery): Promise<PaginatedResponse<RolePermissionsEntity>>;
     delete(publicId: string): Promise<void>;

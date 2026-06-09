@@ -51,7 +51,7 @@ export class RoleRepositoryAdapter implements RoleRepositoryPort {
 
   async findWithPagination(query: ListRoleQuery): Promise<PaginatedResponse<RoleEntity>> {
 
-    const { page, limit, description, name} = query;
+    const { page, limit, description, name, isSystem, isActive } = query;
 
     const where: any = {};
 
@@ -64,6 +64,14 @@ export class RoleRepositoryAdapter implements RoleRepositoryPort {
         contains: name,
         mode: 'insensitive',
       };
+    }
+
+    if (isSystem !== undefined) {
+      where.is_system = isSystem;
+    }
+
+    if (isActive !== undefined) {
+      where.is_active = isActive;
     }
 
     const [data, total] = await this.prisma.$transaction([

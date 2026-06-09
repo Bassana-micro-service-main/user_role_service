@@ -25,6 +25,7 @@ export class CreateRoleUseCase implements CreateRoleInterfacePort {
       name: command.name,
       description:command.description,
       isSystem: command.isSystem,
+      isActive: command.isActive ?? true,
     });
 
     return this.repository.save(role);

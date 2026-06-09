@@ -26,4 +26,9 @@ export class ListRoleDto {
   @Type(() => Boolean)
   @IsBoolean()
   isSystem?: boolean;
+
+  @IsOptional()
+  @Type(() => Boolean)
+  @IsBoolean()
+  isActive?: boolean;
 }

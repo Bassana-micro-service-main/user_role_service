@@ -5,6 +5,7 @@ export interface RoleProps{
     name:string;
     description:string;
     isSystem:boolean;
+    isActive:boolean;
     readonly createdAt?:Date;
     readonly updatedAt?:Date;
 }
@@ -30,9 +31,16 @@ export class RoleEntity {
         get isSystem(): boolean {
             return this.props.isSystem;
         }
+
+        get isActive(): boolean {
+            return this.props.isActive;
+        }
     
         update(updates: Partial<RoleProps>): RoleEntity {
-            Object.assign(this.props, updates);
+            const defined = Object.fromEntries(
+                Object.entries(updates).filter(([, value]) => value !== undefined),
+            );
+            Object.assign(this.props, defined);
             return this;
         }
     }

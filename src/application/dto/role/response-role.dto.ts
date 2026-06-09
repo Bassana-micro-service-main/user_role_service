@@ -17,5 +17,8 @@ export class ResponseRoleDto {
     @IsBoolean()
     isSystem!: boolean;
 
+    @IsBoolean()
+    isActive!: boolean;
+
 
 }

@@ -6,6 +6,7 @@ interface RoleRow {
   name: string;
   description: string;
   is_system: boolean;
+  is_active: boolean;
   created_at?: Date;
   updated_at?: Date;
 }
@@ -18,6 +19,7 @@ export class RoleDbMapper {
       name: prisma.name,
       description: prisma.description,
       isSystem: prisma.is_system,
+      isActive: prisma.is_active,
       createdAt: prisma.created_at,
       updatedAt: prisma.updated_at,
     });
@@ -29,6 +31,7 @@ export class RoleDbMapper {
       name: entity.name,
       description: entity.description,
       is_system: entity.isSystem,
+      is_active: entity.isActive,
     };
   }
 }

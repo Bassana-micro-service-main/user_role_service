@@ -5,6 +5,7 @@ export interface UpdateRoleCommand {
     name?: string;
     description?: string;
     isSystem?: boolean;
+    isActive?: boolean;
 }
 
 export interface UpdateRoleInterfacePort {
